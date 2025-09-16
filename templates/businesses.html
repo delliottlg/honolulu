@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}All Businesses - Glass Strategies Honolulu{% endblock %}
+
+{% block content %}
+<h1>Honolulu Glass Industry Leads</h1>
+
+<div class="grid">
+    <div>
+        <h3>Filter by Type</h3>
+        <select onchange="window.location.href='/businesses?type=' + this.value" style="width: 100%;">
+            <option value="all" {% if current_type == 'all' %}selected{% endif %}>All Businesses</option>
+            {% for stat in type_stats %}
+            <option value="{{ stat.business_type }}" {% if current_type == stat.business_type %}selected{% endif %}>
+                {{ stat.business_type.replace('_', ' ').title() }} ({{ stat.count }})
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <h3>Export Options</h3>
+        <a href="/export/csv?type=all" role="button" class="secondary">📥 Export ALL ({{ businesses|length }} leads)</a>
+        <a href="/export/csv?type=businesses" role="button" style="margin-top: 0.5rem;">📥 Export Businesses Only</a>
+    </div>
+</div>
+
+<div style="margin: 2rem 0;">
+    <h3>Statistics</h3>
+    <div class="grid">
+        {% for stat in type_stats[:6] %}
+        <div class="stat-card">
+            <div class="stat-number">{{ stat.count }}</div>
+            <div><strong>{{ stat.business_type.replace('_', ' ').title() }}</strong></div>
+            <div style="color: #009cc3;">{{ stat.with_email }} with emails</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="overflow-auto">
+    <table>
+        <thead>
+            <tr>
+                <th>Business Type</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Specialty</th>
+                <th>Rating</th>
+                <th>Website</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for business in businesses %}
+            <tr>
+                <td>
+                    <span style="background: #e7f6f9; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.85rem;">
+                        {{ business.business_type.replace('_', ' ').title() }}
+                    </span>
+                </td>
+                <td><strong>{{ business.name }}</strong></td>
+                <td>
+                    {% if business.email %}
+                        <span class="highlight">{{ business.email }}</span>
+                    {% else %}
+                        <em style="color: #999;">-</em>
+                    {% endif %}
+                </td>
+                <td>{{ business.phone or '-' }}</td>
+                <td>{{ business.specialty or '-' }}</td>
+                <td>
+                    {% if business.rating %}
+                        {{ business.rating }} ⭐
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td>
+                    {% if business.website %}
+                        <a href="{{ business.website }}" target="_blank">Visit</a>
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="7" style="text-align: center; padding: 3rem;">
+                    <p>No businesses found.</p>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div style="margin-top: 2rem; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+    <h3>Lead Quality Indicators</h3>
+    <div class="grid">
+        <div>
+            <h4>🎯 High-Value Targets</h4>
+            <ul>
+                <li>Glass Contractors - Direct installers</li>
+                <li>General Contractors - Large projects</li>
+                <li>Property Managers - Multiple buildings</li>
+                <li>Hospitals - Safety critical</li>
+            </ul>
+        </div>
+        <div>
+            <h4>📧 Email Patterns Found</h4>
+            <ul>
+                <li>info@, contact@ - General inquiries</li>
+                <li>sales@, quotes@ - Sales teams</li>
+                <li>admin@, office@ - Administration</li>
+                <li>gm@, manager@ - Decision makers</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

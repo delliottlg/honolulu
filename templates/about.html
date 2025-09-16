@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block title %}Strategy & API Recommendations - Glass Strategies Honolulu{% endblock %}
+
+{% block content %}
+<h1>Honolulu Hotel Lead Generation Strategy</h1>
+
+<div class="strategy-section">
+    <h2>📍 About the Query Box</h2>
+    <p>The coordinates <code>[21.25, -158.1, 21.35, -157.8]</code> represent a bounding box in latitude/longitude format that covers the key hotel areas of Honolulu:</p>
+    <ul>
+        <li><strong>South boundary:</strong> 21.25°N (Ocean side of Waikiki)</li>
+        <li><strong>North boundary:</strong> 21.35°N (Downtown Honolulu)</li>
+        <li><strong>West boundary:</strong> 158.1°W (Pearl Harbor area)</li>
+        <li><strong>East boundary:</strong> 157.8°W (Diamond Head)</li>
+    </ul>
+    <p class="highlight"><strong>My recommendation:</strong> Expand to <code>[21.24, -158.12, 21.37, -157.78]</code> to capture Ko Olina resorts and Kahala luxury hotels</p>
+</div>
+
+<div class="strategy-section">
+    <h2>🔧 Recommended API Strategies</h2>
+
+    <h3>1. Primary Data Collection APIs</h3>
+    <div class="api-comparison">
+        <table>
+            <thead>
+                <tr>
+                    <th>API</th>
+                    <th>Strengths</th>
+                    <th>Best For</th>
+                    <th>Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>SerpAPI</strong> ⭐</td>
+                    <td>Google Maps data, reviews, contact info, can extract emails from websites</td>
+                    <td>Finding hotels + contact details + email extraction</td>
+                    <td>$50/month (you have this)</td>
+                </tr>
+                <tr>
+                    <td><strong>Overpass API</strong></td>
+                    <td>Free, OpenStreetMap data, building details</td>
+                    <td>Initial hotel discovery, building heights</td>
+                    <td>Free</td>
+                </tr>
+                <tr>
+                    <td><strong>Google Places API</strong></td>
+                    <td>Rich business data, photos, operating hours</td>
+                    <td>Detailed hotel information</td>
+                    <td>$17 per 1,000 requests</td>
+                </tr>
+                <tr>
+                    <td><strong>Hunter.io API</strong></td>
+                    <td>Email finding specialist, domain search</td>
+                    <td>Finding decision-maker emails</td>
+                    <td>$49/month for 1,000 verifications</td>
+                </tr>
+                <tr>
+                    <td><strong>Clearbit API</strong></td>
+                    <td>Company enrichment, employee contacts</td>
+                    <td>Finding executives at hotel chains</td>
+                    <td>$99/month starter</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3>2. Email Discovery Strategy</h3>
+    <div style="background: white; padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
+        <h4>Three-Tier Approach:</h4>
+        <ol>
+            <li><strong>Domain Crawling:</strong> Use SerpAPI to get hotel website → Scrape contact/about pages for emails</li>
+            <li><strong>Pattern Matching:</strong> Common hotel email patterns:
+                <ul>
+                    <li>info@[hotelname].com</li>
+                    <li>sales@[hotelname].com</li>
+                    <li>gm@[hotelname].com (General Manager)</li>
+                    <li>engineering@[hotelname].com (Facilities)</li>
+                </ul>
+            </li>
+            <li><strong>LinkedIn + Hunter.io:</strong> Find facilities managers and procurement officers</li>
+        </ol>
+    </div>
+
+    <h3>3. Honolulu-Specific Data Sources</h3>
+    <ul>
+        <li><strong>Hawaii Tourism Authority:</strong> Public hotel occupancy data (identifies busy properties needing upgrades)</li>
+        <li><strong>City and County of Honolulu Building Permits:</strong> Recent renovations = perfect timing for glass upgrades</li>
+        <li><strong>Pacific Business News:</strong> Hotel acquisition/renovation announcements</li>
+        <li><strong>NOAA Hurricane Data:</strong> Properties in highest risk zones</li>
+    </ul>
+</div>
+
+<div class="strategy-section">
+    <h2>💻 Tech Stack Recommendations</h2>
+
+    <h3>Option 1: Current Stack (Recommended)</h3>
+    <div style="background: white; padding: 1.5rem; border-radius: 8px;">
+        <ul>
+            <li><strong>Backend:</strong> Flask + SQLite (simple, portable)</li>
+            <li><strong>Scraping:</strong> Requests + BeautifulSoup for simple pages, Playwright for JavaScript-heavy sites</li>
+            <li><strong>Frontend:</strong> Pico CSS (clean, minimal)</li>
+            <li><strong>Deployment:</strong> Single Python app, easy to replicate for other cities</li>
+        </ul>
+        <p class="highlight">✅ Best for: Quick deployment, easy maintenance, Lance can run locally</p>
+    </div>
+
+    <h3>Option 2: Scalable Architecture</h3>
+    <div style="background: white; padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
+        <ul>
+            <li><strong>Backend:</strong> FastAPI + PostgreSQL + Redis (for caching API calls)</li>
+            <li><strong>Scraping:</strong> Scrapy + Selenium Grid (parallel processing)</li>
+            <li><strong>Queue:</strong> Celery for background email discovery</li>
+            <li><strong>Frontend:</strong> React dashboard with real-time updates</li>
+        </ul>
+        <p class="highlight">Best for: Processing 10,000+ leads, multiple cities simultaneously</p>
+    </div>
+
+    <h3>Option 3: No-Code Hybrid</h3>
+    <div style="background: white; padding: 1.5rem; border-radius: 8px;">
+        <ul>
+            <li><strong>Data Collection:</strong> Zapier + Airtable</li>
+            <li><strong>Email Finding:</strong> Apollo.io or Lusha integrations</li>
+            <li><strong>Enrichment:</strong> Clay.com for data orchestration</li>
+            <li><strong>Storage:</strong> Google Sheets for easy access</li>
+        </ul>
+        <p class="highlight">Best for: Non-technical users, quick testing</p>
+    </div>
+</div>
+
+<div class="strategy-section">
+    <h2>🎯 Honolulu Hotel Prioritization</h2>
+
+    <h3>Tier 1 Targets (Immediate Outreach)</h3>
+    <ul>
+        <li>Beachfront properties in Waikiki (salt spray = glass degradation)</li>
+        <li>Hotels over 20 floors (wind load requirements)</li>
+        <li>Japanese-owned chains (quality-conscious, safety-focused)</li>
+        <li>Properties last renovated before 2018 building code updates</li>
+    </ul>
+
+    <h3>Key Decision Makers to Target</h3>
+    <table>
+        <tr>
+            <td><strong>Facilities Director</strong></td>
+            <td>Day-to-day maintenance decisions</td>
+        </tr>
+        <tr>
+            <td><strong>General Manager</strong></td>
+            <td>Budget approval for upgrades</td>
+        </tr>
+        <tr>
+            <td><strong>Director of Engineering</strong></td>
+            <td>Technical specifications</td>
+        </tr>
+        <tr>
+            <td><strong>Asset Manager</strong> (for chains)</td>
+            <td>Portfolio-wide decisions</td>
+        </tr>
+    </table>
+</div>
+
+<div class="strategy-section" style="background: #fff3cd; border-left: 4px solid #ffc107;">
+    <h2>⚡ Quick Start Recommendation</h2>
+    <p><strong>For immediate results, I recommend:</strong></p>
+    <ol>
+        <li>Use <strong>SerpAPI</strong> to query "hotels in Honolulu" with your existing key</li>
+        <li>Extract hotel websites from results</li>
+        <li>Scrape each website's contact page for emails using BeautifulSoup</li>
+        <li>Enrich with building data from Overpass API (free)</li>
+        <li>Use regex patterns to guess missing emails</li>
+    </ol>
+    <p>This approach can get 200+ qualified leads in under 2 hours.</p>
+</div>
+
+<div style="margin-top: 3rem; text-align: center;">
+    <a href="/leads" role="button">View Current Leads</a>
+</div>
+{% endblock %}

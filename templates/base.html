@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Glass Strategies - Honolulu Hotel Leads{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <style>
+        :root {
+            --pico-color-primary: #009cc3;
+            --pico-color-primary-hover: #007ea1;
+        }
+        nav {
+            background: linear-gradient(135deg, #009cc3 0%, #007ea1 100%);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+        }
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+        }
+        .stat-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #009cc3;
+        }
+        .strategy-section {
+            background: #f0f8fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+        .api-comparison {
+            overflow-x: auto;
+        }
+        table {
+            margin-top: 1rem;
+        }
+        .highlight {
+            background: #e7f6f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="logo">🌊 Glass Strategies Honolulu</div>
+            <div>
+                <a href="/">Home</a>
+                <a href="/about">Strategy</a>
+                <a href="/leads">Hotels</a>
+                <a href="/businesses">All Businesses</a>
+                <a href="/export/csv?type=all">Export All</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="container" style="margin-top: 4rem; padding: 2rem 0; border-top: 1px solid #e5e5e5;">
+        <p style="text-align: center; color: #666;">Glass Strategies Lead Generation System - Honolulu Glass Industry</p>
+    </footer>
+</body>
+</html>

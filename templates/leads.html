@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}Hotel Leads - Glass Strategies Honolulu{% endblock %}
+
+{% block content %}
+<h1>Honolulu Hotel Leads</h1>
+
+<div style="margin-bottom: 2rem;">
+    <a href="/export/csv" role="button" class="secondary">📥 Export to CSV</a>
+    <button onclick="runScraper()" style="margin-left: 1rem;">🔄 Run Scraper</button>
+</div>
+
+<div class="overflow-auto">
+    <table>
+        <thead>
+            <tr>
+                <th>Hotel Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Floors</th>
+                <th>Beachfront</th>
+                <th>Rating</th>
+                <th>Website</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for hotel in hotels %}
+            <tr>
+                <td><strong>{{ hotel.name }}</strong></td>
+                <td>
+                    {% if hotel.email %}
+                        <span class="highlight">{{ hotel.email }}</span>
+                    {% else %}
+                        <em style="color: #999;">Not found</em>
+                    {% endif %}
+                </td>
+                <td>{{ hotel.phone or '-' }}</td>
+                <td>{{ hotel.address or '-' }}</td>
+                <td>{{ hotel.floors or '-' }}</td>
+                <td>
+                    {% if hotel.beachfront %}
+                        <span style="color: #009cc3;">Yes 🏖️</span>
+                    {% else %}
+                        No
+                    {% endif %}
+                </td>
+                <td>
+                    {% if hotel.star_rating %}
+                        {{ hotel.star_rating }}⭐
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td>
+                    {% if hotel.website %}
+                        <a href="{{ hotel.website }}" target="_blank">Visit</a>
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="8" style="text-align: center; padding: 3rem;">
+                    <p>No leads yet. Click "Run Scraper" to start collecting hotel data.</p>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div style="margin-top: 2rem; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+    <p><strong>Email Patterns for Honolulu Hotels:</strong></p>
+    <ul>
+        <li>General inquiries: info@, contact@, reservations@</li>
+        <li>Decision makers: gm@ (General Manager), engineering@, facilities@</li>
+        <li>Sales/Procurement: sales@, purchasing@, procurement@</li>
+    </ul>
+</div>
+
+<script>
+function runScraper() {
+    if (confirm('Run the hotel scraper? This will search for Honolulu hotels and attempt to find contact information.')) {
+        fetch('/api/scrape', {method: 'POST'})
+            .then(response => response.json())
+            .then(data => {
+                alert(`Scraping complete! Found ${data.count} hotels.`);
+                location.reload();
+            })
+            .catch(error => {
+                alert('Scraping failed: ' + error);
+            });
+    }
+}
+</script>
+{% endblock %}

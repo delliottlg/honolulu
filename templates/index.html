@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Glass Strategies - Honolulu Hotel Hurricane Glass Leads{% endblock %}
+
+{% block content %}
+<h1>Honolulu Hotel Lead Generation System</h1>
+<p class="lead">Identifying hotels that need Miami-Dade certified hurricane glass for compliance and safety</p>
+
+<div class="grid">
+    <div class="stat-card">
+        <div class="stat-number">0</div>
+        <div>Total Leads</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">0</div>
+        <div>With Emails</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number">0</div>
+        <div>Beachfront</div>
+    </div>
+</div>
+
+<article style="margin: 2rem 0;">
+    <h2>Why Honolulu Hotels Need Safety Plus II™</h2>
+    <ul>
+        <li><strong>Hurricane Risk:</strong> Hawaii faces annual hurricane threats (Category 4 Hurricane Iniki caused $3.1B in damage)</li>
+        <li><strong>Building Codes:</strong> 2018 Hawaii State Building Code requires impact-resistant glazing for new construction</li>
+        <li><strong>Insurance Requirements:</strong> Many insurers mandate hurricane-resistant glass for coverage</li>
+        <li><strong>Revenue Protection:</strong> Ocean-view rooms generate 40% premium - protect your investment</li>
+    </ul>
+</article>
+
+<div class="grid">
+    <div>
+        <a href="/about" role="button" class="secondary">View Strategy & APIs</a>
+    </div>
+    <div>
+        <a href="/leads" role="button">View Current Leads</a>
+    </div>
+</div>
+
+<article style="background: #f0f8fa; padding: 2rem; border-radius: 8px; margin: 2rem 0;">
+    <h3>Target Profile: Honolulu Hotels</h3>
+    <div class="grid">
+        <div>
+            <h4>High Priority</h4>
+            <ul>
+                <li>Beachfront properties</li>
+                <li>Buildings over 10 floors</li>
+                <li>Last renovated before 2018</li>
+                <li>Luxury resorts (4-5 star)</li>
+            </ul>
+        </div>
+        <div>
+            <h4>Key Areas</h4>
+            <ul>
+                <li>Waikiki Beach hotels</li>
+                <li>Ala Moana high-rises</li>
+                <li>Ko Olina resorts</li>
+                <li>Kahala luxury properties</li>
+            </ul>
+        </div>
+    </div>
+</article>
+
+<script>
+    fetch('/api/hotels')
+        .then(response => response.json())
+        .then(data => {
+            document.querySelectorAll('.stat-number')[0].textContent = data.length;
+            document.querySelectorAll('.stat-number')[1].textContent = data.filter(h => h.email).length;
+            document.querySelectorAll('.stat-number')[2].textContent = data.filter(h => h.beachfront).length;
+        });
+</script>
+{% endblock %}
